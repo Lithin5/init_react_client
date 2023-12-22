@@ -25,13 +25,11 @@ export default function Login() {
     },
     validationSchema,
     onSubmit: async (values) => {
-      const res = await dispatch(login(values));
-      console.log("res", res);
+      const res = await dispatch(login(values));      
       if (res?.payload?.success) {
         dispatch(setCurrentUser(res.payload.user));
         dispatch(setToken(res.payload.token));
-
-        // navigate(`/`);
+        navigate(`/`);
       } else {
         setError("Invalid username or password");
       }
