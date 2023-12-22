@@ -5,8 +5,7 @@ import { selectCurrentUser } from '../../redux/selectors/authenticationSelectors
 import { useSelector } from 'react-redux';
 
 export default function Layout({ children }) {
-  const currentUser = useSelector(selectCurrentUser);
-  console.log("currentUser", currentUser);
+  const currentUser = useSelector(selectCurrentUser);  
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
@@ -15,11 +14,25 @@ export default function Layout({ children }) {
             <Typography component={Link} to="/" variant="h6" sx={{ flexGrow: 1, color: 'white', textDecoration: 'none' }}>
               Book App
             </Typography>
-            <Button component={Link} to="/login" color="inherit">Login</Button>
-            <Button component={Link} to="/register" color="inherit">Register</Button>
+            {currentUser ? (
+              <Button component={Link} to="/login" color="inherit">Logout</Button>
+            ):(
+            <>
+              <Button component={Link} to="/login" color="inherit">Login</Button>
+              <Button component={Link} to="/register" color="inherit">Register</Button>
+            </>
+            )}
           </Toolbar>
         </AppBar>
       </Box>
+      {currentUser && (
+      <Box sx={{ p:5 }} >
+        {currentUser?.role === "admin" ?(
+          <Button>Create Book</Button>
+        ):(
+          <Button>My Books</Button>
+        ) }
+      </Box>)}
       <Outlet />
     </div>
   )

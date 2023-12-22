@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { login } from '../../redux/actions/authenticationActions';
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import { setCurrentUser } from '../../redux/reducers/authenticationSlice';
+import { setCurrentUser, setToken } from '../../redux/reducers/authenticationSlice';
 
 export default function Login() {
 
@@ -29,6 +29,8 @@ export default function Login() {
       console.log("res", res);
       if (res?.payload?.success) {
         dispatch(setCurrentUser(res.payload.user));
+        dispatch(setToken(res.payload.token));
+
         // navigate(`/`);
       } else {
         setError("Invalid username or password");
