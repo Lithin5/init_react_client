@@ -1,8 +1,12 @@
 import { AppBar, Box, Button, IconButton, Toolbar, Typography } from '@mui/material'
 import React from 'react'
 import { Link, Outlet } from 'react-router-dom'
+import { selectCurrentUser } from '../../redux/selectors/authenticationSelectors';
+import { useSelector } from 'react-redux';
 
 export default function Layout({ children }) {
+  const currentUser = useSelector(selectCurrentUser);
+  console.log("currentUser", currentUser);
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
